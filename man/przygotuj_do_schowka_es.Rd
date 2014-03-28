@@ -1,0 +1,40 @@
+\name{przygotuj_do_schowka_es}
+\alias{przygotuj_do_schowka_es}
+\title{Podsumowanie informacji o modelach regresjii liniowej.}
+\usage{
+przygotuj_do_schowka_es(modele, pokaz = TRUE)
+}
+\arguments{
+  \item{modele}{model lub lista modeli}
+
+  \item{pokaz}{wartość logiczna - czy wyświetlić
+  informacje na konsoli?}
+}
+\value{
+lista
+}
+\description{
+Funkcja przygotowuję listę z parametrami modelu (modeli)
+regresji MNK wyestymowanych funkcją
+\code{\link[stats]{lm}} (na innych nie gwarantuje się
+poprawności działania funkcji).
+}
+\details{
+Dla każdego modelu zwracane są trzy tabele: \itemize{
+\item zawierająca wskaźniki dopasowania (R2, skoryg. R2,
+parametry testu F, AIC, BIC), \item zawierająca parametry
+modelu, w tym standaryzowane ("xy" - normalna standaryzacja
+i "x" - coś na podobieństwo d Cohena), \item zawierająca
+macierz korelacji efektów. }
+}
+\examples{
+x=rnorm(100)
+y=x+rnorm(100)
+z=x+rnorm(100,0,2)
+modele=list("model y"=lm(y~x), "model z"=lm(z~x))
+do_schowka(przygotuj_do_schowka_es(modele))
+}
+\seealso{
+\code{\link[lme4]{lmer}}, \code{\link{do_schowka}}
+}
+

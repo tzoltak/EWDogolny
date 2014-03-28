@@ -1,0 +1,20 @@
+Encoding: UTF-8
+Package: EWDogolny
+Version: 0.1
+Date: 2014-03-13
+Title: Utility functions developed while working on Polish Educational
+    Value-Added indicators
+Author: Tomasz Zoltak <tomek@zozlak.org>
+Maintainer: Tomasz Zoltak <tomek@zozlak.org>
+Description: Utility functions developed while working on Polish Educational
+    Value-Added indicators.
+Depends:
+    R (>= 2.15.0),
+    stats,
+    graphics,
+    grDevices
+Suggests:
+    lme4 (>= 1.1-5)
+License: LGPL-3
+Language: pl
+NeedsCompilation: no

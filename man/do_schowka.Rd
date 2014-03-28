@@ -1,0 +1,55 @@
+\name{do_schowka}
+\alias{do_schowka}
+\title{Eksport danych do schowka systemowego.}
+\usage{
+do_schowka(x, nw = FALSE, oel = TRUE, sep = "\\t", dec = ",", na = "",
+  plik = "clipboard-128")
+}
+\arguments{
+  \item{x}{obiekt, który ma być wyeksportowany}
+
+  \item{nw}{czy eksportować nazwy wierszy macierzy?}
+
+  \item{oel}{wartość logiczna - czy na końcu całości
+  dodać przeniesienie do nowej linii? (nie ruszać bez
+  potrzeby)}
+
+  \item{sep}{separator pola przy zapisie (jak w
+  \code{\link[utils]{write.table}}; nie ruszać bez
+  potrzeby)}
+
+  \item{dec}{separator dziesiętny przy zapisise (jak w
+  \code{\link[utils]{write.table}}; nie ruszać bez
+  potrzeby)}
+
+  \item{na}{ciąg znaków na oznaczenie braków danych przy
+  zapisie (jak w \code{\link[utils]{write.table}}; nie
+  ruszać bez potrzeby)}
+
+  \item{plik}{nazwa strumienia, do którego ma pójść
+  zapis (nie ruszać bez potrzeby)}
+}
+\value{
+funkcja nic nie zwraca
+}
+\description{
+Funkcja przetwarza listę składającą się z ramek
+danych, macierzy,i/lub wektorów na jedną wielką macierz
+i kopiuje ją do schowka systemowego, skąd można wkleić
+ją w inne miejsca. Stara się przy tym dosyć
+inteligentnie obchodzić z nazwami (elemetntów listy,
+wierszy, kolumn, elementów wektorów), chociaż pewnie nie
+zawsze jej się udaje.
+}
+\examples{
+x = c(1:10)
+y = 2 * x + 5
+z = letters[11:20]
+lista = list("ramka danych"=data.frame(x, y, z), macierz=matrix(c(x, y), ncol=2, dimnames=list(z, c("a", "b"))), wektor=setNames(x, z))
+do_schowka(lista)
+do_schowka(lista, nw=TRUE)
+}
+\seealso{
+\code{\link[base]{file}}, \code{\link[utils]{write.table}}
+}
+

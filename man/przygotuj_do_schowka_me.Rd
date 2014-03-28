@@ -1,0 +1,41 @@
+\name{przygotuj_do_schowka_me}
+\alias{przygotuj_do_schowka_me}
+\title{Podsumowanie informacji o modelach regresjii mieszanych efektow.}
+\usage{
+przygotuj_do_schowka_me(modele, pokaz = TRUE)
+}
+\arguments{
+  \item{modele}{model lub lista modeli}
+
+  \item{pokaz}{wartość logiczna - czy wyświetlić
+  informacje na konsoli?}
+}
+\value{
+lista
+}
+\description{
+Funkcja przygotowuję listę z parametrami modelu (modeli)
+regresji mieszanych efektów wyestymowanych funkcją
+\code{\link[lme4]{lmer}}.
+}
+\details{
+Dla każdego modelu zwracane są cztery tabele: \itemize{
+\item zawierająca wskaźniki dopasowania, \item
+zawierającą macierz wariancji/kowariancji efektów
+losowych, \item zawierająca parametry modelu, w tym
+standaryzowane ("xy" - normalna standaryzacja i "x" - coś
+na podobieństwo d Cohena), \item zawierająca macierz
+korelacji efektów stałych. } Standaryzacja dokonywana
+jest względem wariancji związanej z częścią stałą
+modelu i błędami indywidualnymi.
+}
+\examples{
+library(lme4)
+fm1 = lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+fm2 = lmer(Reaction ~ Days + (1|Subject) + (0+Days|Subject), sleepstudy)
+do_schowka(przygotuj_do_schowka_me(list(fm1, fm2)))
+}
+\seealso{
+\code{\link[stats]{lm}}, \code{\link{do_schowka}}
+}
+

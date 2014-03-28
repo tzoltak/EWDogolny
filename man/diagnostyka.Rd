@@ -1,0 +1,98 @@
+\name{diagnostyka}
+\alias{diagnostyka}
+\title{Diagnostyka regresji.}
+\usage{
+diagnostyka(model, zapiszPng = NULL, tytul = NULL, smoothScatter = TRUE,
+  loess = TRUE, span = 0.5, control = loess.control(surface =
+  "interpolate", statistics = "approximate", trace.hat = "approximate", cell =
+  1), paleta = colorRampPalette(c("white", blues9)), pch = 16, cex = 1,
+  lwd = 2, alpha = NULL)
+}
+\arguments{
+  \item{model}{model regresji (typowo wynik działania
+  funkcji \code{\link[stats]{lm}}, \code{\link[stats]{glm}}
+  lub \code{\link[lme4]{lmer}})}
+
+  \item{zapiszPng}{tekst - ścieżka do katalogu, w którym
+  mają być zapisane pliki PNG z wykresami lub NULL,
+  jeśli wykresy mają nie być zapisywane}
+
+  \item{tytul}{tekst - tytuł wykresów (od tytułu będą
+  się też rozpoczynać nazwy zapisywanych plików PNG)}
+
+  \item{smoothScatter}{wartość logiczna - czy do
+  rysowania wykresów rozrzutu używać funkcji
+  \code{\link[graphics]{smoothScatter}}?}
+
+  \item{loess}{wartość logiczna - czy do wykresów
+  rozrzutu dodawać linię regresji nieparametrycznej
+  (estymowanej funkcją \code{\link[stats]{loess}})?}
+
+  \item{span}{parametr sterujący wygładzaniem regresji
+  nieparametrycznej (p. \code{\link[stats]{loess}})}
+
+  \item{control}{parametry regresji nieparametrycznej -
+  lista zwrócona przez funkcję
+  \code{\link[stats]{loess.control}}}
+
+  \item{paleta}{funkcja definiująca paletę kolorów do
+  wykorzystania przy rysowaniu wykresów, typowo wynik
+  wywołania funkcji
+  \code{\link[grDevices]{colorRampPalette}}}
+
+  \item{pch}{jeśli smoothScatter=FALSE, znak punktu
+  używanego do rysowania obserwacji (p.
+  \code{\link[graphics]{points}})}
+
+  \item{cex}{jeśli smoothScatter=FALSE, wielkość
+  punktów używanych do rysowania obserwacji (p.
+  \code{\link[graphics]{points}})}
+
+  \item{lwd}{jeśli loess=TRUE, grubość rysowanej linii
+  (p. \code{\link[graphics]{lines}})}
+
+  \item{alpha}{jeśli smoothScatter=FALSE i nie odpowiada
+  Ci wynik działania domyślnego argumentu ustalajacego,
+  jak bardzo przeźroczyste są punkty, możesz zadać
+  przeźroczystość sam}
+}
+\value{
+funkcja nic nie zwraca
+}
+\description{
+Funkcja rysuje wykresy diagnostyczne dla modeli regresji i
+w tym sensie powiela funkcjonalność
+\code{print(lm(...))}, jednak jest zoptymalizowana do tego,
+żeby dawać ładne wykresy dla dużych danych (i dawać je
+szybko). Poza tym obsługuje automatyczne zapisywanie
+wykresów do plików PNG.
+}
+\details{
+Rysowane są następujące wykresy: \itemize{ \item reszty
+w funkcji przewidywania do diagnostyki niezależności
+reszt od przewidywania, \item wykres kwantyl-kwantyl do
+diagnostyki normalności rozkładu reszt, \item pierwiastek
+z modułu reszt w funkcji przewidywania do diagnostyki
+homoscedatyczności. } Dodatkowo dla modeli mieszanych
+efektów, dla każdego efektu losowego: \itemize{ \item
+wykres kwantyl-kwantyl do diagnostyki normalności
+rozkładu BLUPsów, \item BLUPsy w funkcji średniej
+przewidywań z części stałej do diagnostyki
+niezależności części stałej i losowej modelu. }
+}
+\examples{
+x=rnorm(100000)
+y=x+rnorm(100000)
+diagnostyka(lm(y ~ x), tytul="y~x")
+
+library(lme4)
+fm1=lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+diagnostyka(fm1)
+}
+\seealso{
+\code{\link[stats]{lm}}, \code{\link[stats]{glm}},
+\code{\link[lme4]{lmer}},
+\code{\link[graphics]{smoothScatter}},
+\code{\link[stats]{loess}}
+}
+

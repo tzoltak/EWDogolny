@@ -1,0 +1,8 @@
+export(diagnostyka)
+export(do_schowka)
+export(kolorki)
+export(kwantyl_wazony)
+export(nazwy_oke)
+export(przew_npar)
+export(przygotuj_do_schowka_es)
+export(przygotuj_do_schowka_me)

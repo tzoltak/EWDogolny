@@ -1,0 +1,30 @@
+\name{nazwy_oke}
+\alias{nazwy_oke}
+\title{Konwersja nazw OKE}
+\usage{
+nazwy_oke(x, naPolskie = TRUE)
+}
+\arguments{
+  \item{x}{czynnik opisujący przydział do OKE}
+
+  \item{naPolskie}{wartość logiczna - czy konwertować do
+  standardu zapisu z polskimi znakami? (jeśli FALSE -
+  konwersja do standardu zapisu bez polskich znaków)}
+}
+\value{
+czynnik
+}
+\description{
+Funkcja konwertuje nazwy OKE pomiędzy dwoma standardami
+stosowanymi w zbiorach EWD - 1) zapisem z użyciem polskich
+znaków i wielkich liter, 2) zapisem tylko z wykorzystaniem
+małych liter, bez polskich znaków.
+}
+\examples{
+x=c("gdansk", "lodz")
+y=c("Warszawa", "Kraków")
+nazwy_oke(factor(x))
+nazwy_oke(factor(y), FALSE)
+nazwy_oke(factor(c(x, y)))
+}
+

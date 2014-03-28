@@ -1,0 +1,33 @@
+\name{kwantyl_wazony}
+\alias{kwantyl_wazony}
+\title{Wazone kwantyle}
+\usage{
+kwantyl_wazony(x, wagi, probs = seq(0, 1, 0.25), na.rm = FALSE)
+}
+\arguments{
+  \item{x}{wektor wartości zmiennej}
+
+  \item{wagi}{wektor wag}
+
+  \item{probs}{wektor prawdopodobieństw definiujących
+  kwantyle, które mają zostać wyliczone}
+
+  \item{na.rm}{wartość logiczna - czy pominąć braki
+  danych?}
+}
+\value{
+wektor z wyliczonymi kwantylami
+}
+\description{
+Funkcja wylicza kwantyle uwzględniając nierówne wagi
+jednostek obserwacji. Sposób wyliczania kwanrtyli
+odpowiada podejściu \code{type=2} z funkcji
+\code{\link[stats]{quantile}}.
+}
+\examples{
+x=1:10
+w=rep(1:2, each=5)
+kwantyl_wazony(x, w)
+quantile(c(1:5, rep(6:10, each=2)), type=2)
+}
+
