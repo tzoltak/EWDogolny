@@ -1,2 +1,8 @@
 --------------------
+Zmiany w  EWDogolny 0.1.1 (2014-06-05)
+
+- Pomniejsze zmiany:
+  - Zmieniono wzorce nazw plików zapisywanych na dysku przez funkcję diagnostyka() tak, aby nie zawierały polskich znaków (knitr miał problemy z ich przetwarzaniem).
+
+--------------------
 Publikacja EWDogolny 0.1 (2014-03-28)

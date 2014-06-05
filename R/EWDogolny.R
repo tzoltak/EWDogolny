@@ -431,7 +431,7 @@ diagnostyka=function(model, zapiszPng=NULL, tytul=NULL, smoothScatter=TRUE, loes
 	grid(col=grey(0.5))
 	abline(0,1, col=2, lwd=2, lty=1)
 	if (is.character(zapiszPng)) {
-		dev.print(png, paste0(gsub("[\n ]", "_", gsub("[:.]", "", tytul)), "_", "normalność_reszt", ".png"), height=1004, width=1004, pointsize=12, res=150)
+		dev.print(png, paste0(gsub("[\n ]", "_", gsub("[:.]", "", tytul)), "_", "normalnosc_reszt", ".png"), height=1004, width=1004, pointsize=12, res=150)
 	}
 	# homoscedatyczność
 	plot(NA, NA, xlim=limPrzewidywania, ylim=limPierwBezwzglStdReszty, main="", xlab="wartości przewidywane", ylab="")
@@ -448,7 +448,7 @@ diagnostyka=function(model, zapiszPng=NULL, tytul=NULL, smoothScatter=TRUE, loes
 		lines(przew_npar(pierwBezwzglStdReszty~przewidywania, data.frame(pierwBezwzglStdReszty, przewidywania)), col=2, lwd=lwd, lty=1)
 	}
 	if (is.character(zapiszPng)) {
-		dev.print(png, paste0(gsub("[\n ]", "_", gsub("[:.]", "", tytul)), "_", "homoscedatyczność", ".png"), height=1004, width=1004, pointsize=12, res=150)
+		dev.print(png, paste0(gsub("[\n ]", "_", gsub("[:.]", "", tytul)), "_", "homoscedatycznosc", ".png"), height=1004, width=1004, pointsize=12, res=150)
 	}
 	# diagnostyka efektów losowych (z poziomów innych niż indywidualny)
 	if (any(class(model) %in% c("lmerMod", "glmerMod"))) {
@@ -473,7 +473,7 @@ diagnostyka=function(model, zapiszPng=NULL, tytul=NULL, smoothScatter=TRUE, loes
 				grid(col=grey(0.5))
 				abline(0,1, col=2, lwd=2, lty=1)
 				if (is.character(zapiszPng)) {
-					dev.print(png, paste0(gsub("[\n ]", "_", gsub("[:.]", "", tytul)), "_", "normalność_ef_los_", i, "_", j, ".png"), height=1004, width=1004, pointsize=12, res=150)
+					dev.print(png, paste0(gsub("[\n ]", "_", gsub("[:.]", "", tytul)), "_", "normalnosc_ef_los_", i, "_", j, ".png"), height=1004, width=1004, pointsize=12, res=150)
 				}
 				# analiza związków między średnimi przewidywanami wynikającymi z części stałej modelu a BLUPsami;
 				limBlup = max(abs(unlist(blupTemp))) * c(-1,1)
