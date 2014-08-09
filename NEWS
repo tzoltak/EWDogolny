@@ -1,4 +1,10 @@
 --------------------
+Zmiany w  EWDogolny 0.1.2 (2014-08-09)
+
+- Nowe funkcje:
+  - regr_pierw_rodz() - wylicza regresję pierwszego rodzaju (inaczej mówiąc, parametry warunkowe), domyślnie średnich.
+
+--------------------
 Zmiany w  EWDogolny 0.1.1 (2014-06-05)
 
 - Pomniejsze zmiany:
