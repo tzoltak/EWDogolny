@@ -250,6 +250,23 @@ przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 }
 #' @title Regresja nieparametryczna.
 #' @description
+#' Funkcja powiela działanie funkcji \code{\link{przew_npar}} i jest uruchamiana z parametrami funkcji \code{\link{regr_pierw_rodz}}.
+#' @param zmZal ciąg znaków - nazwa zmiennej zależnej
+#' @param zmNZal wektor tekstowy z nazwami zmiennych niezależnych
+#' @param dane ramka danych zawierająca zmienne występujące w formule
+#' @param przew_nparPar lista z dodatkowymi parametrami dla funkcji przew_npar.
+#' @return ramka danych zawierająca zmienne 'x' (wartości zm. niezależnej) i 'y' (przewidywanie)
+#' @export
+przew_npar_rpr = function(zmZal, zmNZal, dane, przew_nparPar = NULL){
+  if(is.null(przew_nparPar)){
+    przew_nparPar = list()
+  }
+  przew_nparPar$formula = as.formula(paste0(zmZal, "~", zmNZal))
+  przew_nparPar$data = dane
+  przewNPar = do.call(przew_npar, przew_nparPar)
+}
+#' @title Regresja nieparametryczna.
+#' @description
 #' Funkcja przy pomocy funkcji \code{\link[stats]{loess}} wylicza dopasowanie nieparametryczne i przetwarza wyniki w formę zdatnę do łatwego rysowania.
 #' @details
 #' Funkcja wywołuje \code{\link[stats]{loess}} z parametrami ustawionymi tak, aby nie liczyło się to za długo. Przy tym troszeczkę dopasowuje dokładność (konkretnie parametr \code{cell} do liczby obserwacji, żeby nie przesadzić z upraszczaniem.)
