@@ -1,33 +1,50 @@
 #' @title Diagnostyka regresji.
 #' @description
-#' Funkcja rysuje wykresy diagnostyczne dla modeli regresji i w tym sensie powiela funkcjonalność \code{print(lm(...))}, jednak jest zoptymalizowana do tego, żeby dawać ładne wykresy dla dużych danych (i dawać je szybko).
+#' Funkcja rysuje wykresy diagnostyczne dla modeli regresji i w tym sensie powiela
+#' funkcjonalność \code{print(lm(...))}, jednak jest zoptymalizowana do tego, żeby dawać
+#' ładne wykresy dla dużych danych (i dawać je szybko).
 #' Poza tym obsługuje automatyczne zapisywanie wykresów do plików PNG.
 #' @details
 #' Rysowane są następujące wykresy:
 #' \itemize{
-#' \item reszty w funkcji przewidywania do diagnostyki niezależności reszt od przewidywania,
-#' \item wykres kwantyl-kwantyl do diagnostyki normalności rozkładu reszt,
-#' \item pierwiastek z modułu reszt w funkcji przewidywania do diagnostyki homoscedatyczności.
+#'   \item{reszty w funkcji przewidywania do diagnostyki niezależności reszt od
+#'   przewidywania,}
+#'   \item{wykres kwantyl-kwantyl do diagnostyki normalności rozkładu reszt,}
+#'   \item{pierwiastek z modułu reszt w funkcji przewidywania do diagnostyki
+#'         homoscedatyczności.}
 #' }
 #' Dodatkowo dla modeli mieszanych efektów, dla każdego efektu losowego:
 #' \itemize{
-#' \item wykres kwantyl-kwantyl do diagnostyki normalności rozkładu BLUPsów,
-#' \item BLUPsy w funkcji średniej przewidywań z części stałej do diagnostyki niezależności części stałej i losowej modelu.
+#'   \item{wykres kwantyl-kwantyl do diagnostyki normalności rozkładu BLUPsów,}
+#'   \item{BLUPsy w funkcji średniej przewidywań z części stałej do diagnostyki
+#'         niezależności części stałej i losowej modelu.}
 #' }
-#' @param model model regresji (typowo wynik działania funkcji \code{\link[stats]{lm}}, \code{\link[stats]{glm}} lub \code{\link[lme4]{lmer}})
-#' @param zapiszPng tekst - ścieżka do katalogu, w którym mają być zapisane pliki PNG z wykresami lub NULL, jeśli wykresy mają nie być zapisywane
-#' @param tytul tekst - tytuł wykresów (od tytułu będą się też rozpoczynać nazwy zapisywanych plików PNG)
-#' @param smoothScatter wartość logiczna - czy do rysowania wykresów rozrzutu używać funkcji \code{\link[graphics]{smoothScatter}}?
-#' @param loess wartość logiczna - czy do wykresów rozrzutu dodawać linię regresji nieparametrycznej (estymowanej funkcją \code{\link[stats]{loess}})?
-#' @param span parametr sterujący wygładzaniem regresji nieparametrycznej (p. \code{\link[stats]{loess}})
-#' @param control parametry regresji nieparametrycznej - lista zwrócona przez funkcję \code{\link[stats]{loess.control}}
-#' @param paleta funkcja definiująca paletę kolorów do wykorzystania przy rysowaniu wykresów, typowo wynik wywołania funkcji \code{\link[grDevices]{colorRampPalette}}
-#' @param pch jeśli smoothScatter=FALSE, znak punktu używanego do rysowania obserwacji (p. \code{\link[graphics]{points}})
-#' @param cex jeśli smoothScatter=FALSE, wielkość punktów używanych do rysowania obserwacji (p. \code{\link[graphics]{points}})
+#' @param model model regresji (typowo wynik działania funkcji \code{\link[stats]{lm}},
+#' \code{\link[stats]{glm}} lub \code{\link[lme4]{lmer}})
+#' @param zapiszPng tekst - ścieżka do katalogu, w którym mają być zapisane pliki PNG
+#' z wykresami lub NULL, jeśli wykresy mają nie być zapisywane
+#' @param tytul tekst - tytuł wykresów (od tytułu będą się też rozpoczynać nazwy
+#' zapisywanych plików PNG)
+#' @param smoothScatter wartość logiczna - czy do rysowania wykresów rozrzutu używać
+#' funkcji \code{\link[graphics]{smoothScatter}}?
+#' @param loess wartość logiczna - czy do wykresów rozrzutu dodawać linię regresji
+#' nieparametrycznej (estymowanej funkcją \code{\link[stats]{loess}})?
+#' @param span parametr sterujący wygładzaniem regresji nieparametrycznej
+#' (p. \code{\link[stats]{loess}})
+#' @param control parametry regresji nieparametrycznej - lista zwrócona przez funkcję
+#' \code{\link[stats]{loess.control}}
+#' @param paleta funkcja definiująca paletę kolorów do wykorzystania przy rysowaniu
+#' wykresów, typowo wynik wywołania funkcji \code{\link[grDevices]{colorRampPalette}}
+#' @param pch jeśli smoothScatter=FALSE, znak punktu używanego do rysowania obserwacji
+#' (p. \code{\link[graphics]{points}})
+#' @param cex jeśli smoothScatter=FALSE, wielkość punktów używanych do rysowania obserwacji
+#' (p. \code{\link[graphics]{points}})
 #' @param lwd jeśli loess=TRUE, grubość rysowanej linii  (p. \code{\link[graphics]{lines}})
-#' @param alpha jeśli smoothScatter=FALSE i nie odpowiada Ci wynik działania domyślnego argumentu ustalajacego, jak bardzo przeźroczyste są punkty, możesz zadać przeźroczystość sam
+#' @param alpha jeśli smoothScatter=FALSE i nie odpowiada Ci wynik działania domyślnego
+#' argumentu ustalajacego, jak bardzo przeźroczyste są punkty, możesz zadać przeźroczystość sam
 #' @return funkcja nic nie zwraca
-#' @seealso \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[lme4]{lmer}}, \code{\link[graphics]{smoothScatter}}, \code{\link[stats]{loess}}
+#' @seealso \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[lme4]{lmer}},
+#' \code{\link[graphics]{smoothScatter}}, \code{\link[stats]{loess}}
 #' @examples
 #' x=rnorm(100000)
 #' y=x+rnorm(100000)
