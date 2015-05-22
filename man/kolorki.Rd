@@ -11,13 +11,15 @@ kolorki(x, kolory, zakres = NULL)
 
 \item{kolory}{wektor tekstowy z nazwami kolorów}
 
-\item{zakres}{opcjonalny dwualementowy wektor podający zakres wartości, w jakim ma różnicować się skala kolorów}
+\item{zakres}{opcjonalny dwualementowy wektor podający zakres wartości,
+w jakim ma różnicować się skala kolorów}
 }
 \value{
 wektor z nazwami kolorów o długości równej wektorowi x
 }
 \description{
-Funkcja tworzy mapowanie wartości wektora liczbowego na kolory (skalę kolorów) i zwraca wynik takiego mapowania.
+Funkcja tworzy mapowanie wartości wektora liczbowego na kolory (skalę kolorów)
+i zwraca wynik takiego mapowania.
 }
 \examples{
 x=runif(150)

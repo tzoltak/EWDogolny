@@ -16,9 +16,11 @@ przew_npar_rpr(zmZal, zmNZal, dane, przew_nparPar = NULL)
 \item{przew_nparPar}{lista z dodatkowymi parametrami dla funkcji przew_npar.}
 }
 \value{
-ramka danych zawierająca zmienne 'x' (wartości zm. niezależnej) i 'y' (przewidywanie)
+ramka danych zawierająca zmienne 'x' (wartości zm. niezależnej) i 'y'
+(przewidywanie)
 }
 \description{
-Funkcja powiela działanie funkcji \code{\link{przew_npar}} i jest uruchamiana z parametrami funkcji \code{\link{regr_pierw_rodz}}.
+Funkcja powiela działanie funkcji \code{\link{przew_npar}} i jest uruchamiana
+z parametrami funkcji \code{\link{regr_pierw_rodz}}.
 }
 

@@ -11,7 +11,8 @@ kwantyl_wazony(x, wagi, probs = seq(0, 1, 0.25), na.rm = FALSE)
 
 \item{wagi}{wektor wag}
 
-\item{probs}{wektor prawdopodobieństw definiujących kwantyle, które mają zostać wyliczone}
+\item{probs}{wektor prawdopodobieństw definiujących kwantyle, które mają
+zostać wyliczone}
 
 \item{na.rm}{wartość logiczna - czy pominąć braki danych?}
 }
@@ -19,7 +20,9 @@ kwantyl_wazony(x, wagi, probs = seq(0, 1, 0.25), na.rm = FALSE)
 wektor z wyliczonymi kwantylami
 }
 \description{
-Funkcja wylicza kwantyle uwzględniając nierówne wagi jednostek obserwacji. Sposób wyliczania kwanrtyli odpowiada podejściu \code{type=2} z funkcji \code{\link[stats]{quantile}}.
+Funkcja wylicza kwantyle uwzględniając nierówne wagi jednostek obserwacji.
+Sposób wyliczania kwanrtyli odpowiada podejściu \code{type=2} z funkcji
+\code{\link[stats]{quantile}}.
 }
 \examples{
 x=1:10

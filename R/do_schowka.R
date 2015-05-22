@@ -1,13 +1,20 @@
 #' @title Eksport danych do schowka systemowego.
 #' @description
-#' Funkcja przetwarza listę składającą się z ramek danych, macierzy,i/lub wektorów na jedną wielką macierz i kopiuje ją do schowka systemowego, skąd można wkleić ją w inne miejsca.
-#' Stara się przy tym dosyć inteligentnie obchodzić z nazwami (elemetntów listy, wierszy, kolumn, elementów wektorów), chociaż pewnie nie zawsze jej się udaje.
+#' Funkcja przetwarza listę składającą się z ramek danych, macierzy,i/lub
+#' wektorów na jedną wielką macierz i kopiuje ją do schowka systemowego, skąd
+#' można wkleić ją w inne miejsca.
+#' Stara się przy tym dosyć inteligentnie obchodzić z nazwami (elemetntów listy,
+#' wierszy, kolumn, elementów wektorów), chociaż pewnie nie zawsze jej się udaje.
 #' @param x obiekt, który ma być wyeksportowany
 #' @param nw czy eksportować nazwy wierszy macierzy?
-#' @param oel wartość logiczna - czy na końcu całości dodać przeniesienie do nowej linii? (nie ruszać bez potrzeby)
-#' @param sep separator pola przy zapisie (jak w \code{\link[utils]{write.table}}; nie ruszać bez potrzeby)
-#' @param dec separator dziesiętny przy zapisise (jak w \code{\link[utils]{write.table}}; nie ruszać bez potrzeby)
-#' @param na ciąg znaków na oznaczenie braków danych przy zapisie (jak w \code{\link[utils]{write.table}}; nie ruszać bez potrzeby)
+#' @param oel wartość logiczna - czy na końcu całości dodać przeniesienie do
+#' nowej linii? (nie ruszać bez potrzeby)
+#' @param sep separator pola przy zapisie (jak w \code{\link[utils]{write.table}};
+#' nie ruszać bez potrzeby)
+#' @param dec separator dziesiętny przy zapisise
+#' (jak w \code{\link[utils]{write.table}}; nie ruszać bez potrzeby)
+#' @param na ciąg znaków na oznaczenie braków danych przy zapisie
+#' (jak w \code{\link[utils]{write.table}}; nie ruszać bez potrzeby)
 #' @param plik nazwa strumienia, do którego ma pójść zapis (nie ruszać bez potrzeby)
 #' @return funkcja nic nie zwraca
 #' @seealso \code{\link[base]{file}}, \code{\link[utils]{write.table}}
@@ -15,26 +22,30 @@
 #' x = c(1:10)
 #' y = 2 * x + 5
 #' z = letters[11:20]
-#' lista = list("ramka danych"=data.frame(x, y, z), macierz=matrix(c(x, y), ncol=2, dimnames=list(z, c("a", "b"))), wektor=setNames(x, z))
+#' lista = list("ramka danych"=data.frame(x, y, z), macierz=matrix(c(x, y),
+#'              ncol=2, dimnames=list(z, c("a", "b"))), wektor=setNames(x, z))
 #' do_schowka(lista)
 #' do_schowka(lista, nw=TRUE)
 #' @export
-do_schowka = function(x, nw=FALSE, oel=TRUE, sep="\t", dec=",", na="", plik="clipboard-128") {
+do_schowka = function(x, nw = FALSE, oel = TRUE, sep = "\t", dec = ",", na = "",
+                      plik = "clipboard-128") {
 	temp = file(plik, "w")
-	options(warn=-1)
-	try(cat("", file=temp))
+	options(warn = -1)
+	try(cat("", file = temp))
 	if (!is.list(x) | is.data.frame(x)) x = list(x)
 	for (i in 1:length(x)) {
-		if (!is.null(names(x))) if (names(x)[i] != "") try(write(names(x)[i], temp, append=TRUE))
+		if (!is.null(names(x))) if (names(x)[i] != "") try(write(names(x)[i], temp, append = TRUE))
 		if (nw & (is.data.frame(x[[i]]) | is.matrix(x[[i]]))) {
-			x[[i]] = data.frame(" "=rownames(x[[i]]), x[[i]], check.names=FALSE)
+			x[[i]] = data.frame(" " = rownames(x[[i]]), x[[i]], check.names = FALSE)
 		} else if (is.matrix(x[[i]])) {
 			x[[i]] = as.data.frame(x[[i]])
 		}
-		if (!is.null(names(x[[i]]))) try(write(names(x[[i]]), temp, append=TRUE, ncolumns=length(names(x[[i]])), sep=sep))
+		if (!is.null(names(x[[i]]))) try(write(names(x[[i]]), temp, append = TRUE,
+		                                       ncolumns = length(names(x[[i]])), sep = sep))
 		if (is.vector(x[[i]])) x[[i]] = as.data.frame(as.list(x[[i]]))
-		try(write.table(x[[i]], temp, sep=sep, dec=dec, na=na, row.names=FALSE, col.names=FALSE, append=TRUE))
-		if (oel & i < length(x)) try(cat("\n", file=temp, append=TRUE))
+		try(write.table(x[[i]], temp, sep = sep, dec = dec, na = na,
+		                row.names = FALSE, col.names = FALSE, append = TRUE))
+		if (oel & i < length(x)) try(cat("\n", file = temp, append = TRUE))
 	}
 	close(temp)
 	options(warn=0)
@@ -42,12 +53,15 @@ do_schowka = function(x, nw=FALSE, oel=TRUE, sep="\t", dec=",", na="", plik="cli
 }
 #' @title Podsumowanie informacji o modelach regresjii liniowej.
 #' @description
-#' Funkcja przygotowuję listę z parametrami modelu (modeli) regresji MNK wyestymowanych funkcją \code{\link[stats]{lm}} (na innych nie gwarantuje się poprawności działania funkcji).
+#' Funkcja przygotowuję listę z parametrami modelu (modeli) regresji MNK
+#' wyestymowanych funkcją \code{\link[stats]{lm}} (na innych nie gwarantuje się
+#' poprawności działania funkcji).
 #' @details
 #' Dla każdego modelu zwracane są trzy tabele:
 #' \itemize{
 #' \item zawierająca wskaźniki dopasowania (R2, skoryg. R2, parametry testu F, AIC, BIC),
-#' \item zawierająca parametry modelu, w tym standaryzowane ("xy" - normalna standaryzacja i "x" - coś na podobieństwo d Cohena),
+#' \item zawierająca parametry modelu, w tym standaryzowane ("xy" - normalna
+#' standaryzacja i "x" - coś na podobieństwo d Cohena),
 #' \item zawierająca macierz korelacji efektów.
 #' }
 #' @param modele model lub lista modeli
@@ -61,15 +75,15 @@ do_schowka = function(x, nw=FALSE, oel=TRUE, sep="\t", dec=",", na="", plik="cli
 #' modele=list("model y"=lm(y~x), "model z"=lm(z~x))
 #' do_schowka(przygotuj_do_schowka_es(modele))
 #' @export
-przygotuj_do_schowka_es = function(modele, pokaz=TRUE) {
+przygotuj_do_schowka_es = function(modele, pokaz = TRUE) {
 	stopifnot(is.logical(pokaz))
 	if (!is.list(modele) | ("lm" %in% class(modele))) modele = list(modele)
 	return(unlist(lapply(modele,
 		function(x) {
-			y = try(summary(x, correlation=TRUE))
+			y = try(summary(x, correlation = TRUE))
 			if (pokaz) {cat("\n#############################################"); print(y)}
 			if ("summary.lm" %in% class(y)) {
-				daneM = data.frame(x$model[,1], model.matrix(x)[, -1], check.names=FALSE)
+				daneM = data.frame(x$model[,1], model.matrix(x)[, -1], check.names = FALSE)
 				odchStd = unlist(lapply(daneM, sd))
 				return(list(
 					dopasowanie = c(
@@ -85,13 +99,13 @@ przygotuj_do_schowka_es = function(modele, pokaz=TRUE) {
 						param             = rownames(y$coefficients), y$coefficients,
 						"std.xy Estimate" = y$coefficients[, 1] * c(NA, odchStd[2:nrow(y$coefficients)]) / odchStd[1],
 						"std.x Estimate"  = y$coefficients[, 1] / odchStd[1],
-						check.names=FALSE
+						check.names = FALSE
 					),
 					# wstawka z do.call w celu wyczyszczenia przekątnej i górnego trójkąta macierzy korelacji
 					corEfSt = do.call(
 						function(x) {
 							x[!lower.tri(x)] = NA
-							return(data.frame(" "=rownames(x), x, check.names=FALSE))
+							return(data.frame(" " = rownames(x), x, check.names = FALSE))
 						},
 						list(y$correlation)
 					)
@@ -101,20 +115,23 @@ przygotuj_do_schowka_es = function(modele, pokaz=TRUE) {
 				return(NULL)
 			}
 		}
-	), recursive=FALSE))
+	), recursive = FALSE))
 }
 #' @title Podsumowanie informacji o modelach regresjii mieszanych efektow.
 #' @description
-#' Funkcja przygotowuję listę z parametrami modelu (modeli) regresji mieszanych efektów wyestymowanych funkcją \code{\link[lme4]{lmer}}.
+#' Funkcja przygotowuję listę z parametrami modelu (modeli) regresji mieszanych
+#' efektów wyestymowanych funkcją \code{\link[lme4]{lmer}}.
 #' @details
 #' Dla każdego modelu zwracane są cztery tabele:
 #' \itemize{
 #' \item zawierająca wskaźniki dopasowania,
 #' \item zawierającą macierz wariancji/kowariancji efektów losowych,
-#' \item zawierająca parametry modelu, w tym standaryzowane ("xy" - normalna standaryzacja i "x" - coś na podobieństwo d Cohena),
+#' \item zawierająca parametry modelu, w tym standaryzowane ("xy" - normalna
+#' standaryzacja i "x" - coś na podobieństwo d Cohena),
 #' \item zawierająca macierz korelacji efektów stałych.
 #' }
-#' Standaryzacja dokonywana jest względem wariancji związanej z częścią stałą modelu i błędami indywidualnymi.
+#' Standaryzacja dokonywana jest względem wariancji związanej z częścią stałą
+#' modelu i błędami indywidualnymi.
 #' @param modele model lub lista modeli
 #' @param pokaz wartość logiczna - czy wyświetlić informacje na konsoli?
 #' @return lista
@@ -125,6 +142,7 @@ przygotuj_do_schowka_es = function(modele, pokaz=TRUE) {
 #' fm2 = lmer(Reaction ~ Days + (1|Subject) + (0+Days|Subject), sleepstudy)
 #' do_schowka(przygotuj_do_schowka_me(list(fm1, fm2)))
 #' @export
+#' @import lme4
 przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 	stopifnot(is.logical(pokaz))
 	if (!is.list(modele)) modele = list(modele)
@@ -133,14 +151,14 @@ przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 			y = summary(x)
 			if (pokaz) {
 				cat("\n#############################################\n")
-				print(y, correlation=TRUE)
+				print(y, correlation = TRUE)
 			}
 			if ("lmerMod" %in% class(x)) {
 				# w obiektami klasy mer lub summary.mer jest prościej, niż z lm
 				odchStd = unlist(lapply(as.data.frame(model.matrix(x)[, -1]), sd))
 				# standaryzacja idzie względem wariancji zm. zależnej na poziomie indywidualnym (wariancja przewidywania + wariancja błędów indywidualnych)
-				warPrzew = var(predict(x, re.form=~0), na.rm=TRUE)
-				odchStd = c(zal=sqrt(warPrzew + sigma(x)^2), odchStd)
+				warPrzew = var(predict(x, re.form = ~0), na.rm = TRUE)
+				odchStd = c(zal = sqrt(warPrzew + sigma(x)^2), odchStd)
 				# za to z efektami losowymi trzeba się napocić
 				efLos = mapply(
 					function(z, nazwa) {
@@ -152,28 +170,29 @@ przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 							do.call(
 								function(x) {
 									x[!lower.tri(x)] = NA
-									colnames(x)=c("cor", rep("", ncol(x)-1))
+									colnames(x) = c("cor", rep("", ncol(x) - 1))
 									return(x)
 								},
-								list(x=attributes(z)$correlation)
+								list(x = attributes(z)$correlation)
 							),
-							check.names=FALSE
-						)[, - (4 + nrow(z))])
+							check.names = FALSE
+						)[, -(4 + nrow(z))])
 					},
 					VarCorr(x),
 					as.list(names(VarCorr(x))),
-					SIMPLIFY=FALSE
+					SIMPLIFY = FALSE
 				)
 				maxLK = max(unlist(lapply(efLos, ncol)))
 				efLos = lapply(efLos,
 					function(z, maxLK) {
-						if (ncol(z) < maxLK) z = cbind(z, matrix(NA, nrow=nrow(z), ncol=maxLK - ncol(z)))
-						if (ncol(z) > 4) names(z)[5:ncol(z)] = c("cor", rep("", ncol(z)-5))
+						if (ncol(z) < maxLK) z = cbind(z, matrix(NA, nrow = nrow(z),
+						                                         ncol = maxLK - ncol(z)))
+						if (ncol(z) > 4) names(z)[5:ncol(z)] = c("cor", rep("", ncol(z) - 5))
 						return(z)
-					}, maxLK=maxLK
+					}, maxLK = maxLK
 				)
 				if (length(efLos) > 1) {
-					temp=rbind(efLos[[1]], efLos[[2]])
+					temp = rbind(efLos[[1]], efLos[[2]])
 				} else if (length(efLos) == 1) {
 					temp = efLos[[1]]
 				}
@@ -183,16 +202,16 @@ przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 				if (length(efLos) == 0) {
 					efLos = NULL
 				} else {
-					efLos=rbind(
-						temp,
-						setNames(
-							data.frame(
-								c("reszty ind.", "ef. stałe"),
-								"",
-								c(attributes(VarCorr(x))$sc^2, warPrzew),
-								c(attributes(VarCorr(x))$sc  , warPrzew^0.5),
-								matrix(NA, nrow=2, ncol=ncol(temp)-4)
-							),
+					efLos = rbind(
+					  temp,
+					  setNames(
+					    data.frame(
+					      c("reszty ind.", "ef. stałe"),
+					      "",
+					      c(attributes(VarCorr(x))$sc^2, warPrzew),
+					      c(attributes(VarCorr(x))$sc  , warPrzew^0.5),
+					      matrix(NA, nrow = 2, ncol = ncol(temp) - 4)
+					    ),
 							names(temp))
 					)
 					rownames(efLos) = NULL
@@ -205,28 +224,28 @@ przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 						LL        = setNames(logLik(x), ""),
 						df        = attributes(logLik(x))$df,
 						deviance  = setNames(deviance(x),""),
-						check.names=FALSE
+						check.names = FALSE
 					),
 					efLos  = efLos,
 					efSt   = data.frame(
 						param             = rownames(coef(y)), coef(y),
 						"std.xy Estimate" = coef(y)[, 1] * c(NA, odchStd[2:nrow(coef(y))]) / odchStd[1],
 						"std.x Estimate"  = coef(y)[, 1] / odchStd[1],
-						check.names=FALSE),
+						check.names = FALSE),
 					# wstawka z do.call w celu wyczyszczenia przekątnej i górnego trójkąta macierzy korelacji
-					corEfSt=do.call(
+					corEfSt = do.call(
 						function(x) {
-							x[!lower.tri(x)]=NA
+							x[!lower.tri(x)] = NA
 							return(data.frame(
 								" " = rownames(x),
 								x,
-								check.names=FALSE
+								check.names = FALSE
 							))
 						},
 						list(matrix(
 							vcov(x)@factors$correlation@x,
-							nrow=vcov(x)@factors$correlation@Dim[1],
-							dimnames=list(
+							nrow = vcov(x)@factors$correlation@Dim[1],
+							dimnames = list(
 								rownames(coef(y)),
 								rownames(coef(y))
 							)
@@ -238,5 +257,5 @@ przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 				return(NULL)
 			}
 		}
-	), recursive=FALSE))
+	), recursive = FALSE))
 }
