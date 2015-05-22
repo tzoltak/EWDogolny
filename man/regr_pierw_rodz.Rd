@@ -19,9 +19,11 @@ regr_pierw_rodz(zmZal, zmNZal, dane, FUN = mean)
 data frame
 }
 \description{
-Funkcja wylicza regresję pierwszego rodzaju (inaczej mówiąc, parametry warunkowe), domyślnie średnich.
+Funkcja wylicza regresję pierwszego rodzaju (inaczej mówiąc, parametry
+warunkowe), domyślnie średnich.
 }
 \details{
-Funkcja \code{FUN} powinna zwracać pojedynczą wartość liczbową i przyjmować argument \code{na.rm}.
+Funkcja \code{FUN} powinna zwracać pojedynczą wartość liczbową i przyjmować
+argument \code{na.rm}.
 }
 

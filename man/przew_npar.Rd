@@ -18,13 +18,18 @@ przew_npar(formula, data, degree = 2, span = 0.5, control = NULL)
 \item{control}{lista zwrócona przez funkcję \code{\link[stats]{loess.control}}}
 }
 \value{
-ramka danych zawierająca zmienne 'x' (wartości zm. niezależnej) i 'y' (przewidywanie)
+ramka danych zawierająca zmienne 'x' (wartości zm. niezależnej) i 'y'
+(przewidywanie)
 }
 \description{
-Funkcja przy pomocy funkcji \code{\link[stats]{loess}} wylicza dopasowanie nieparametryczne i przetwarza wyniki w formę zdatnę do łatwego rysowania.
+Funkcja przy pomocy funkcji \code{\link[stats]{loess}} wylicza dopasowanie
+nieparametryczne i przetwarza wyniki w formę zdatnę do łatwego rysowania.
 }
 \details{
-Funkcja wywołuje \code{\link[stats]{loess}} z parametrami ustawionymi tak, aby nie liczyło się to za długo. Przy tym troszeczkę dopasowuje dokładność (konkretnie parametr \code{cell} do liczby obserwacji, żeby nie przesadzić z upraszczaniem.)
+Funkcja wywołuje \code{\link[stats]{loess}} z parametrami ustawionymi tak,
+aby nie liczyło się to za długo. Przy tym troszeczkę dopasowuje dokładność
+(konkretnie parametr \code{cell} do liczby obserwacji, żeby nie przesadzić
+z upraszczaniem.)
 }
 \examples{
 x=runif(100000) * 4 - 2

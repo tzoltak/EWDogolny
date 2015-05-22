@@ -72,13 +72,15 @@ Dodatkowo dla modeli mieszanych efektów, dla każdego efektu losowego:
 }
 }
 \examples{
-x=rnorm(100000)
-y=x+rnorm(100000)
-diagnostyka(lm(y ~ x), tytul="y~x")
+\dontrun{
+  x = rnorm(100000)
+  y = x + rnorm(100000)
+  diagnostyka(lm(y ~ x), tytul = "y~x")
 
-library(lme4)
-fm1=lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
-diagnostyka(fm1)
+  library(lme4)
+  fm1 = lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+  diagnostyka(fm1)
+}
 }
 \seealso{
 \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[lme4]{lmer}},
