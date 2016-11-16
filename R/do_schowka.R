@@ -27,6 +27,7 @@
 #' do_schowka(lista)
 #' do_schowka(lista, nw=TRUE)
 #' @export
+#' @importFrom utils write.table
 do_schowka = function(x, nw = FALSE, oel = TRUE, sep = "\t", dec = ",", na = "",
                       plik = "clipboard-128") {
 	temp = file(plik, "w")
@@ -75,6 +76,7 @@ do_schowka = function(x, nw = FALSE, oel = TRUE, sep = "\t", dec = ",", na = "",
 #' modele=list("model y"=lm(y~x), "model z"=lm(z~x))
 #' do_schowka(przygotuj_do_schowka_es(modele))
 #' @export
+#' @importFrom stats AIC BIC model.matrix sd
 przygotuj_do_schowka_es = function(modele, pokaz = TRUE) {
 	stopifnot(is.logical(pokaz))
 	if (!is.list(modele) | ("lm" %in% class(modele))) modele = list(modele)
@@ -142,6 +144,7 @@ przygotuj_do_schowka_es = function(modele, pokaz = TRUE) {
 #' fm2 = lmer(Reaction ~ Days + (1|Subject) + (0+Days|Subject), sleepstudy)
 #' do_schowka(przygotuj_do_schowka_me(list(fm1, fm2)))
 #' @export
+#' @importFrom stats coef deviance logLik predict sigma var vcov
 #' @import lme4
 przygotuj_do_schowka_me = function(modele, pokaz=TRUE) {
 	stopifnot(is.logical(pokaz))
