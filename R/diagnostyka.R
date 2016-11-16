@@ -56,6 +56,11 @@
 #'   diagnostyka(fm1)
 #' }
 #' @export
+#' @importFrom stats aggregate fitted formula loess.control qqnorm resid
+#'                   rstandard setNames
+#' @importFrom graphics abline grid lines par plot points title
+#' @importFrom grDevices blues9 colorRampPalette col2rgb dev.print grey hsv
+#'                       rgb2hsv png
 #' @import lme4
 diagnostyka = function(model, zapiszPng=NULL, tytul=NULL, smoothScatter=TRUE,
                        loess=TRUE, span=0.5,

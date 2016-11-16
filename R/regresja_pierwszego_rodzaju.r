@@ -52,6 +52,7 @@ regr_pierw_rodz = function(zmZal, zmNZal, dane, FUN = mean) {
 #' grid(col=grey(0.5))
 #' lines(przew_npar(y~z, data.frame(z, y)), col=2, lwd=2)
 #' @export
+#' @importFrom stats loess
 przew_npar = function(formula, data, degree = 2, span = 0.5, control = NULL) {
   stopifnot(
     "formula" %in% class(formula), is.data.frame(data) | is.matrix(data),
@@ -91,8 +92,9 @@ przew_npar = function(formula, data, degree = 2, span = 0.5, control = NULL) {
 #' @return ramka danych zawierająca zmienne 'x' (wartości zm. niezależnej) i 'y'
 #' (przewidywanie)
 #' @export
+#' @importFrom stats as.formula
 przew_npar_rpr = function(zmZal, zmNZal, dane, przew_nparPar = NULL){
-  if (is.null(przew_nparPar)){
+  if (is.null(przew_nparPar)) {
     przew_nparPar = list()
   }
   przew_nparPar$formula = as.formula(paste0(zmZal, "~", zmNZal))

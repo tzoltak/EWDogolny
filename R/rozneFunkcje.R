@@ -106,6 +106,7 @@ nazwy_oke = function(x, naPolskie=TRUE) {
 #' kwantyl_wazony(x, w)
 #' quantile(c(1:5, rep(6:10, each=2)), type=2)
 #' @export
+#' @importFrom stats na.omit
 kwantyl_wazony = function(x, wagi, probs=seq(0, 1, 0.25), na.rm=FALSE) {
   stopifnot(is.numeric(x), is.numeric(wagi), is.numeric(probs), is.logical(na.rm))
   stopifnot(all(wagi >= 0), length(wagi) == length(x), all(probs >= 0),
@@ -118,7 +119,7 @@ kwantyl_wazony = function(x, wagi, probs=seq(0, 1, 0.25), na.rm=FALSE) {
   } else {
     if (with(temp, any(is.na(x[wagi > 0])))) {  # jeśli jakieś obserwacje z niezerowymi wagami mają braki, zwróć brak danych
       return(setNames(rep(NA, length(probs)), probs))
-    } else {  # jeśli braki dotyczą tylko obserwacji z wagami równymi zero, można je zignorować
+    } else { # jeśli braki dotyczą tylko obserwacji z wagami równymi zero, można je zignorować
       temp = na.omit(temp)
     }
   }
